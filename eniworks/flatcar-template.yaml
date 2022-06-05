@@ -1,0 +1,46 @@
+networkd:
+  units:
+    - name: 00-ens192.network
+      contents: |
+        [Match]
+        Name=ens192
+
+        [Network]
+        Domains=eniworks.net
+        DNS=10.64.0.1
+        Address=$FLATCAR_IP/24
+        Gateway=10.64.0.1
+storage:
+  filesystems:
+    - name: oem
+      mount:
+        device: /dev/disk/by-label/OEM
+        format: ext4
+        label: OEM
+  files:
+    - path: /etc/hostname
+      filesystem: root
+      mode: 0644
+      contents:
+        inline: |
+          $FLATCAR_HOSTNAME
+    - path: /grub.cfg
+      filesystem: oem
+      mode: 0644
+      contents:
+        inline: |
+          set oem_id="vmware"
+          set linux_append=""
+
+  links:
+    # set timezone
+    - path: /etc/localtime
+      filesystem: root
+      overwrite: true
+      target: /usr/share/zoneinfo/US/Central
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        # My public key
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDmitAG2IPdhBsqCcmI70Jd8frjDN///aPx1nfe9g1jeezofI12AWiLmK6tNW72ELxZ3sN8O8QVhRg0a9EkuiDwsmsqljKuhVixOIwDZZhIM8H90bgWCcdotJ5hOCJR/qGZSOxqTHXObu6PUpGoheyvTgSt1UlWz9+vg/nmYNS/DpDuXNN7NIXpUwfGZ982Jm/kjcAbFjfETQXXSUN+lV7UdIh7Y+yzQJEFGv2cHs49VrtNXD206jde+vDwNev4IB/c8qPynVXLjwPcrDoRiMSt3XkiTQhSdazbIY/fRphOCN9oArY+fYiaY9lTJCjXjuK0y2A0j+L43atRzhiVe5F7"
