@@ -34,3 +34,11 @@ sudo ./flatcar-config.sh master
 # Alternatively, for the worker nodes.
 sudo ./flatcar-config.sh worker
 ```
+
+## toolbox-jail.sh
+
+This script is the bootstrap for my toolbox jail.
+
+Toolbox is a multi-purpose node that handles ldap, mail, and my database.
+
+I've decided to run it as a jail inside truenas as my NAS is my most stable machine and running it locally makes it easy to back up.
