@@ -1,34 +1,40 @@
-#!/bin/bash
+#!/bin/zsh
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-brew install --cask iterm2
-brew install visual-studio-code
 brew install brave-browser
+brew install --cask 1password
+brew install --cask iterm2
+brew install --cask nextcloud
 brew install --cask docker
-brew install python3
 brew install --cask burp-suite
 brew install --cask ghidra
 brew install --cask arduino
+brew install --cask virtualbox
+brew install --cask discord
+brew install --cask ghidra
+brew install --cask spotify
+brew install lens
+brew install visual-studio-code
+brew install python3
 brew install binwalk
 brew install wget
 brew install gobuster
 brew install hydra
 brew install hashcat
-brew install macchanger
 brew install spoof-mac
-brew install --cask wireshark
 brew install aircrack-ng
-brew install --cask virtualbox
 brew install nmap
 brew install irssi
-brew install --cask discord
 brew install gpg
 brew install certutil
 brew install libusb
 brew install cmake
 brew install nmake
-brew install --cask ghidra
+#brew install macchanger
+
+# These require password auth, post install
+brew install --cask tunnelblick
+brew install --cask wireshark
 
 curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
@@ -47,3 +53,5 @@ curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py
 
 rm get-pip.py
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
