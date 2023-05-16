@@ -13,7 +13,7 @@ The flatcar OVA can be downloaded here
 
 This script is used to generate the base64 encoding of the flatcar configuration.
 
-This can be passed into esxi when creating a new VM.
+This can be passed into ESXI when creating a new VM.
 
 ```
 ./generate-flatcar-manifests.sh workerXX WORKER_IP
@@ -35,10 +35,17 @@ sudo ./flatcar-config.sh master
 sudo ./flatcar-config.sh worker
 ```
 
-## toolbox-jail.sh
+## jails
+
+### cups-jail.sh
+
+This script will bootstrap a printer manager server.
+
+
+### toolbox-jail.sh
 
 This script is the bootstrap for my toolbox jail.
 
 Toolbox is a multi-purpose node that handles ldap, mail, and my database.
 
-I've decided to run it as a jail inside truenas as my NAS is my most stable machine and running it locally makes it easy to back up.
+I've decided to run it as a jail inside TrueNAS as my NAS is my most stable machine and running it locally makes it easy to back up.
