@@ -4,6 +4,18 @@ install_type=${1:-master}
 
 echo "--------------------Install type $install_type--------------------"
 
+# No Swap
+swapoff -a
+sed -i '/\/swap.img/ s/^/#/' /etc/fstab
+
+# Install packages
+apt-get install -y docker.io socat conntrack nfs-common
+
+# Disable bad net packages
+echo "blacklist cdc_mbim" >> /etc/modprobe.d/blacklist.conf
+echo "blacklist cdc_ncm" >> /etc/modprobe.d/blacklist.conf
+echo "Make sure to restart for full net connectivity, if you aren't using a USB dongle perhaps revert this..."
+
 # Setup Network
 echo "--------------------Setup Network--------------------"
 
@@ -46,6 +58,11 @@ curl -sSL --remote-name-all https://storage.googleapis.com/kubernetes-release/re
 
 chmod +x {kubeadm,kubelet,kubectl}
 mv {kubeadm,kubelet,kubectl} $DOWNLOAD_DIR/
+
+# Link binaries
+cd /bin
+ln -s $DOWNLOAD_DIR/ .
+cd -
 
 systemctl enable --now kubelet 
 systemctl status kubelet  --no-pager
