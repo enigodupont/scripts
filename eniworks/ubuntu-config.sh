@@ -14,6 +14,7 @@ apt-get install -y docker.io socat conntrack nfs-common
 # Disable bad net packages
 echo "blacklist cdc_mbim" >> /etc/modprobe.d/blacklist.conf
 echo "blacklist cdc_ncm" >> /etc/modprobe.d/blacklist.conf
+echo "Make sure to create /etc/udev/rules.d/50-usb-realtek-net.rules if you are using a realtek usb" 
 echo "Make sure to restart for full net connectivity, if you aren't using a USB dongle perhaps revert this..."
 
 # Setup Network
@@ -61,7 +62,7 @@ mv {kubeadm,kubelet,kubectl} $DOWNLOAD_DIR/
 
 # Link binaries
 cd /bin
-ln -s $DOWNLOAD_DIR/ .
+ln -s $DOWNLOAD_DIR/* .
 cd -
 
 systemctl enable --now kubelet 
@@ -72,6 +73,7 @@ then
 	echo "Non-Master Install, exiting now ..."
 	echo "Pull worker config from master, and join the cluster"
 	echo "kubeadm join --config worker-config.yaml"
+  echo "Make sure to reboot and add the network rules for realtek usb ethernet"
 	exit
 fi
 
