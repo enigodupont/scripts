@@ -1,6 +1,14 @@
 #!/bin/zsh
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+PATH="$PATH:/opt/homebrew/bin"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+sudo xcodebuild -license accept
+
+mkdir -p ~/.ssh ~/.kube
+
 brew install brave-browser
 brew install --cask 1password
 brew install --cask iterm2
@@ -8,6 +16,8 @@ brew install --cask nextcloud
 brew install --cask docker
 brew install --cask discord
 brew install --cask spotify
+brew install --cask rectangle
+brew install --cask steam 
 brew install lens
 brew install visual-studio-code
 brew install python3
@@ -43,7 +53,7 @@ rm get-pip.py
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-echo "Install Downlink and Amphetamine from the App Store"
+echo "Install Downlink, Microsoft To-Do and Amphetamine from the App Store"
 
 #Commented items are for sec testing
 # Consider controlling these installs from a flag
