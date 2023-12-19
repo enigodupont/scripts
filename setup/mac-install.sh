@@ -28,6 +28,7 @@ brew install certutil
 brew install libusb
 brew install cmake
 brew install nmake
+brew install rar
 
 # These require password auth, post install
 brew install --cask openvpn-connect
