@@ -29,6 +29,8 @@ brew install libusb
 brew install cmake
 brew install nmake
 brew install rar
+brew install utm
+brew install cabextract
 
 # These require password auth, post install
 brew install --cask openvpn-connect
