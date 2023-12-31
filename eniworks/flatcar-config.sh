@@ -7,7 +7,7 @@ echo "--------------------Install type $install_type--------------------"
 # Setup Network
 echo "--------------------Setup Network--------------------"
 
-systemctl enable docker
+systemctl enable containerd
 modprobe br_netfilter
 
 cat <<EOF | tee /etc/modules-load.d/k8s.conf
@@ -22,25 +22,25 @@ sysctl --system
 
 # Download Binaries
 echo "--------------------Download Binaries--------------------"
-#CNI_VERSION="v0.8.2"
-CNI_VERSION="v1.0.1"
-CRICTL_VERSION="v1.22.0"
-RELEASE_VERSION="v0.12.0"
+CNI_VERSION="v1.4.0"
+CRICTL_VERSION="v1.29.0"
+RELEASE_VERSION="v0.16.4"
 DOWNLOAD_DIR="/opt/bin"
-RELEASE="v1.23.1" #"$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+RELEASE="v1.25.14" #"$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 
 mkdir -p /opt/bin
 mkdir -p /opt/cni/bin
 mkdir -p /etc/systemd/system/kubelet.service.d
+mkdir -p /etc/kubernetes/manifests
 
 echo "--------------------Download CNI--------------------"
 curl -sSL "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 echo "--------------------Download crictl--------------------"
 curl -sSL "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C $DOWNLOAD_DIR -xz
 echo "--------------------Download kubelet--------------------"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | tee /etc/systemd/system/kubelet.service
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubelet/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | tee /etc/systemd/system/kubelet.service
 echo "--------------------Download kubeadm--------------------"
-curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 echo "--------------------Download kube-release--------------------"
 curl -sSL --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
 
@@ -114,7 +114,7 @@ metadata:
 spec: {}
 EOF
 
-kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml
 kubectl apply -f calico.yaml
 kubectl taint nodes --all node-role.kubernetes.io/master-
 kubectl get pods -A
