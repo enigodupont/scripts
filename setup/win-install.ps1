@@ -42,7 +42,7 @@ echo "https://1password.com/downloads/windows/"
 
 echo "AVerMedia GC573 Live Gamer 4K: https://www.avermedia.com/support/download"
 
-echo "https://winaerotweaker.com/
+echo "https://winaerotweaker.com/"
 
 echo "Audio Driver: https://www.msi.com/Motherboard/MPG-X570-GAMING-EDGE-WIFI/support"
 
@@ -65,6 +65,8 @@ echo "https://account.elderscrollsonline.com/en-us/users/account"
 echo "https://freetrial.finalfantasyxiv.com/na/download"
 
 echo "https://airspy.com/download/"
+
+echo "https://github.com/Ryochan7/FakerInput/releases"
 
 
 echo "If getting wallpaper engine crashes, install mpeg-2 from store?"
