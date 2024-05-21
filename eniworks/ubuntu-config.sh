@@ -9,7 +9,7 @@ swapoff -a
 sed -i '/\/swap.img/ s/^/#/' /etc/fstab
 
 # Install packages
-apt-get install -y jq socat conntrack nfs-common ebtables ethtool apt-transport-https ca-certificates curl gnupg containerd
+apt-get install -y jq socat conntrack nfs-common ebtables ethtool apt-transport-https ca-certificates curl gnupg containerd inxi net-tools
 # Disable bad net packages
 echo "blacklist cdc_mbim" >> /etc/modprobe.d/blacklist.conf
 echo "blacklist cdc_ncm" >> /etc/modprobe.d/blacklist.conf
@@ -40,7 +40,7 @@ CNI_VERSION="v1.4.0"
 CRICTL_VERSION="v1.29.0"
 RELEASE_VERSION="v0.16.4"
 DOWNLOAD_DIR="/opt/bin"
-RELEASE="v1.25.14" #"$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+RELEASE="v1.28.5" #"$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 
 mkdir -p /opt/bin
 mkdir -p /opt/cni/bin
@@ -70,8 +70,14 @@ cd -
 systemctl enable --now kubelet 
 systemctl status kubelet  --no-pager
 
+containerd config default > /etc/containerd/config.toml
+sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
+systemctl restart containerd
+systemctl restart kubelet
+
 if ! [ "$install_type" = "master" ]
 then 
+
 	echo "Non-Master Install, exiting now ..."
 	echo "Pull worker config from master, and join the cluster"
 	echo "kubeadm join --config worker-config.yaml"
@@ -104,6 +110,7 @@ kubeadm init --config kubeadm-config.yaml
 mkdir -p "$HOME/.kube"
 cp -i /etc/kubernetes/admin.conf "$HOME/.kube/config"
 
+# TODO, IF WE HAVE TO RECREATE THE MASTER WE WILL NEED TO UPDATE THIS SECTION
 # Install CNI
 echo "--------------------Install calico CNI--------------------"
 cat <<EOF | tee calico.yaml
@@ -162,7 +169,4 @@ nodeRegistration:
     volume-plugin-dir: "/opt/libexec/kubernetes/kubelet-plugins/volume/exec/"
 EOF
 
-containerd config default > /etc/containerd/config.toml
-sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml
-systemctl restart containerd
 systemctl restart kubelet

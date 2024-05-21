@@ -6,6 +6,7 @@ choco install -y git
 choco install -y vim
 choco install -y dotnetcoresdk
 choco install -y dotnet
+choco install -y diffutils
 choco install -y brave
 choco install -y discord
 choco install -y betterdiscord
