@@ -32,7 +32,7 @@ choco install -y ds4windows
 choco install -y cheatengine
 choco install -y postman
 choco install -y vortex
-
+choco install -y vnc-viewer
 echo "Install apps from the windows store, look at your library and re-install what's needed."
 
 echo "Install WSL and Ubuntu"
