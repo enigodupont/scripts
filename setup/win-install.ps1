@@ -3,17 +3,20 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 Set-ExecutionPolicy unrestricted
 
 choco install -y git
+choco install -y powertoys
+choco install -y nextcloud-client
+choco install -y brave
+choco install -y discord
+echo "If betterdiscord fails to install, look online you might have to delete some library files"
+choco install -y betterdiscord
+choco install -y steam
+choco install -y vscode
 choco install -y vim
 choco install -y dotnetcoresdk
 choco install -y dotnet
 choco install -y diffutils
-choco install -y brave
-choco install -y discord
-choco install -y betterdiscord
 choco install -y element-desktop
-choco install -y vscode
 choco install -y rainmeter
-choco install -y steam
 choco install -y amd-ryzen-chipset
 choco install -y speccy
 choco install -y notepadplusplus.install
@@ -26,13 +29,13 @@ choco install -y lens
 choco install -y openvpn-connect
 choco install -y cura-new
 choco install -y razer-synapse-3
-choco install -y powertoys
-choco install -y nextcloud-client
 choco install -y ds4windows
 choco install -y cheatengine
 choco install -y postman
 choco install -y vortex
 choco install -y vnc-viewer
+choco install -y geforce-experience
+
 echo "Install apps from the windows store, look at your library and re-install what's needed."
 
 echo "Install WSL and Ubuntu"
