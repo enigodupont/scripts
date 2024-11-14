@@ -26,7 +26,7 @@ CNI_VERSION="v1.4.0"
 CRICTL_VERSION="v1.29.0"
 RELEASE_VERSION="v0.16.4"
 DOWNLOAD_DIR="/opt/bin"
-RELEASE="v1.25.14" #"$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+RELEASE="v1.28.5" #"$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 
 mkdir -p /opt/bin
 mkdir -p /opt/cni/bin
