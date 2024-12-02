@@ -155,7 +155,7 @@ prefix="https://"
 short_url=${URL#"$prefix"}
 
 cat <<EOF
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 kind: JoinConfiguration
 discovery:
   bootstrapToken:
