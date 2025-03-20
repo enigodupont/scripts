@@ -27,7 +27,7 @@ choco install -y powershell-core
 choco install -y icue
 choco install -y lens
 choco install -y openvpn-connect
-choco install -y cura-new
+choco install -y bambustudio
 choco install -y razer-synapse-3
 choco install -y ds4windows
 choco install -y cheatengine
