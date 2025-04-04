@@ -6,7 +6,7 @@ networkd:
         Name=ens192
 
         [Network]
-        Domains=eniworks.net
+        Domains=eniworks.net.internal
         DNS=10.64.0.1
         Address=$FLATCAR_IP/24
         Gateway=10.64.0.1
