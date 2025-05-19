@@ -9,12 +9,31 @@ swapoff -a
 sed -i '/\/swap.img/ s/^/#/' /etc/fstab
 
 # Install packages
-apt-get install -y jq socat conntrack nfs-common ebtables ethtool apt-transport-https ca-certificates curl gnupg containerd inxi net-tools
+apt-get install -y jq socat conntrack nfs-common ebtables ethtool apt-transport-https ca-certificates curl gnupg containerd inxi net-tools open-iscsi lsscsi sg3-utils multipath-tools scsitools
+
+# Enable multipathing for block storage
+tee /etc/multipath.conf <<-'EOF'
+defaults {
+    user_friendly_names yes
+    find_multipaths yes
+}
+EOF
+
+systemctl enable multipath-tools.service
+service multipath-tools restart
+
+# Ensure that open-iscsi and multipath-tools are enabled and running
+systemctl status multipath-tools
+systemctl enable open-iscsi.service
+service open-iscsi restart
+systemctl status open-iscsi
+
 # Disable bad net packages
 echo "blacklist cdc_mbim" >> /etc/modprobe.d/blacklist.conf
 echo "blacklist cdc_ncm" >> /etc/modprobe.d/blacklist.conf
 echo "Make sure to create /etc/udev/rules.d/50-usb-realtek-net.rules if you are using a realtek usb" 
 echo "Make sure to restart for full net connectivity, if you aren't using a USB dongle perhaps revert this..."
+
 
 # Setup Network
 echo "--------------------Setup Network--------------------"
