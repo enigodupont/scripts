@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_type=${1:-master}
+install_type=${1:-worker}
 
 echo "--------------------Install type $install_type--------------------"
 
@@ -29,6 +29,7 @@ service open-iscsi restart
 systemctl status open-iscsi
 
 # Disable bad net packages
+# TODO: Find a way to check if this has been done and only do it once.
 echo "blacklist cdc_mbim" >> /etc/modprobe.d/blacklist.conf
 echo "blacklist cdc_ncm" >> /etc/modprobe.d/blacklist.conf
 echo "Make sure to create /etc/udev/rules.d/50-usb-realtek-net.rules if you are using a realtek usb" 
@@ -82,9 +83,9 @@ chmod +x {kubeadm,kubelet,kubectl}
 mv {kubeadm,kubelet,kubectl} $DOWNLOAD_DIR/
 
 # Link binaries
-cd /bin
+cd /bin || exit
 ln -s $DOWNLOAD_DIR/* .
-cd -
+cd - || exit
 
 systemctl enable --now kubelet 
 systemctl status kubelet  --no-pager
