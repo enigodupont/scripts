@@ -18,6 +18,7 @@ brew install --cask discord
 brew install --cask spotify
 brew install --cask rectangle
 brew install --cask steam 
+brew install --cask obsidian
 brew install lens
 brew install visual-studio-code
 brew install python3

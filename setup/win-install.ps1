@@ -35,6 +35,7 @@ choco install -y postman
 choco install -y vortex
 choco install -y vnc-viewer
 choco install -y geforce-experience
+choco install -y obsidian
 
 echo "Install apps from the windows store, look at your library and re-install what's needed."
 
