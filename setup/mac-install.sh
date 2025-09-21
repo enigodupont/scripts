@@ -16,6 +16,7 @@ brew install --cask nextcloud
 brew install --cask docker
 brew install --cask discord
 brew install --cask spotify
+brew install --cask vlc
 brew install --cask rectangle
 brew install --cask steam 
 brew install --cask obsidian
