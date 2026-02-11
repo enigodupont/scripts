@@ -36,6 +36,9 @@ choco install -y vortex
 choco install -y vnc-viewer
 choco install -y geforce-experience
 choco install -y obsidian
+choco install -y displayfusion
+choco install -y lghub
+choco install -y crystaldiskinfo
 
 echo "Install apps from the windows store, look at your library and re-install what's needed."
 
