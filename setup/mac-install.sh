@@ -35,6 +35,7 @@ brew install utm
 brew install cabextract
 brew install jq
 brew install yq
+brew install lunar
 
 # These require password auth, post install
 brew install --cask openvpn-connect
