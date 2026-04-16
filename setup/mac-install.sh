@@ -20,6 +20,7 @@ brew install --cask vlc
 brew install --cask rectangle
 brew install --cask steam 
 brew install --cask obsidian
+brew install --cask lm-studio
 brew install lens
 brew install visual-studio-code
 brew install python3
